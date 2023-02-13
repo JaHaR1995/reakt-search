@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Products from "./Products";
+import cardProducts from "./arr";
 
-function App() {
+const App = () => {
+  const [name, setName] = useState('')
+
+  const filterName = cardProducts.filter(item =>{
+    return item.name.toLowerCase().includes(name) 
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Cards">
+      <div className="input">
+        <input onChange={(e) => setName(e.target.value)}></input>            
+      </div>
+      <div className="Cross">
+        {filterName.map((elem) => (
+          <Products img={elem.image} name={elem.name} price={elem.price} />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
